@@ -151,7 +151,7 @@
   .timeline::before{content:"";position:absolute;left:130px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--copper),var(--cyan));}
   @media (max-width:700px){.timeline::before{left:18px;}}
   .t-item{display:grid;grid-template-columns:112px 34px 1fr;margin-bottom:34px;}
-  @media (max-width:700px){.t-item{grid-template-columns:0 34px 1fr;}}
+  @media (max-width:700px){.t-item{grid-template-columns:34px 1fr;}}
   .t-date{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted2);text-align:right;padding-right:18px;padding-top:4px;}
   @media (max-width:700px){.t-date{display:none;}}
   .t-dot-col{display:flex;justify-content:center;}
@@ -378,25 +378,9 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="sec-eyebrow mono">About</span>
-        <h2 class="display">Objective</h2>
+        <h2 class="display">Quick facts</h2>
       </div>
-      <div class="about-grid">
-        <div class="panel reveal">
-          <p style="color:var(--muted);line-height:1.8;margin:0;">To be affiliated with a prestigious institution, improve the standard of the profession, and empower students with the necessary skills, qualities, knowledge, attitude and value of time — through hands-on IoT product development, applied research and mentorship.</p>
-          <div class="sub-head mono" style="margin-top:22px;color:var(--muted2);font-size:0.68rem;">Technical skills &amp; tools</div>
-          <div class="chip-row" style="margin-top:12px;">
-            <span class="skill-chip">IoT</span>
-            <span class="skill-chip">Arduino IDE</span>
-            <span class="skill-chip">KiCad</span>
-            <span class="skill-chip">Cadence Virtuoso</span>
-            <span class="skill-chip">Xilinx ISE / PlanAhead</span>
-            <span class="skill-chip">Altera Quartus II</span>
-            <span class="skill-chip">Multisim PCB</span>
-            <span class="skill-chip">Eagle PCB Layout</span>
-            <span class="skill-chip">MATLAB</span>
-            <span class="skill-chip">Drone/UAV</span>
-          </div>
-        </div>
+      <div class="about-grid" style="grid-template-columns:1fr;max-width:640px;">
         <div class="panel reveal">
           <ul class="fact-list">
             <li><span>Current role</span><span>Assistant Professor, ECE</span></li>
@@ -407,6 +391,30 @@
             <li><span>Location</span><span>Villupuram District, Tamil Nadu</span></li>
             <li><span>Memberships</span><span>Life Member ISTE · Member IETE</span></li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Toolkit</span>
+        <h2 class="display">Technical skills &amp; tools</h2>
+      </div>
+      <div class="panel reveal">
+        <div class="chip-row">
+          <span class="skill-chip">IoT</span>
+          <span class="skill-chip">Arduino IDE</span>
+          <span class="skill-chip">KiCad</span>
+          <span class="skill-chip">Cadence Virtuoso</span>
+          <span class="skill-chip">Xilinx ISE / PlanAhead</span>
+          <span class="skill-chip">Altera Quartus II</span>
+          <span class="skill-chip">Multisim PCB</span>
+          <span class="skill-chip">Eagle PCB Layout</span>
+          <span class="skill-chip">MATLAB</span>
+          <span class="skill-chip">Drone/UAV</span>
         </div>
       </div>
     </div>
