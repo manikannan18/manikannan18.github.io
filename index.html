@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manikannan G — Assistant Professor, ECE | IoT & Embedded Systems Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1220;
+    --surface:#121B2E;
+    --surface2:#182640;
+    --copper:#DB9A5C;
+    --copper-dim:#8a5a30;
+    --cyan:#4FD6D0;
+    --text:#EAF0FA;
+    --muted:#93A5C4;
+    --muted2:#5b6e8c;
+    --line:rgba(234,240,250,0.11);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+  }
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  a{color:inherit;}
+  ::selection{background:var(--copper);color:#1a0f05;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  @media (max-width:640px){.wrap{padding:0 20px;}}
+  .display{font-family:'Fraunces',serif;font-weight:600;line-height:1.05;}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:0.04em;text-transform:uppercase;}
+
+  /* blueprint grid backdrop */
+  .grid-bg{
+    position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.5;
+    background-image:
+      linear-gradient(rgba(79,214,208,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,214,208,0.045) 1px, transparent 1px);
+    background-size:42px 42px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+  }
+
+  header{position:sticky;top:0;z-index:50;background:rgba(11,18,32,0.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+  .logo{font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;}
+  .logo span{color:var(--copper);}
+  .nav-links{display:flex;gap:26px;list-style:none;margin:0;padding:0;}
+  .nav-links a{font-size:0.86rem;text-decoration:none;color:var(--muted);transition:color .2s;}
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--text);}
+  .cta-btn{
+    font-weight:600;font-size:0.85rem;background:var(--copper);color:#1a0f05;
+    padding:10px 20px;border-radius:8px;text-decoration:none;border:none;cursor:pointer;
+    transition:transform .2s, box-shadow .2s;display:inline-block;
+  }
+  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(219,154,92,0.3);}
+  .nav-cta-mobile{display:none;}
+  .menu-toggle{display:none;background:none;border:none;color:var(--text);font-size:1.5rem;cursor:pointer;}
+  @media (max-width:900px){
+    .nav-links{position:fixed;top:60px;left:0;right:0;background:var(--surface);flex-direction:column;gap:0;
+      border-bottom:1px solid var(--line);max-height:0;overflow:hidden;transition:max-height .3s ease;z-index:40;}
+    .nav-links.open{max-height:420px;overflow-y:auto;}
+    .nav-links a{display:block;padding:14px 32px;border-bottom:1px solid var(--line);}
+    .nav-cta-mobile{display:block;padding:14px 32px;}
+    .nav-cta-desktop{display:none;}
+    .menu-toggle{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:76px 0 64px;z-index:1;}
+  .hero-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:52px;align-items:center;}
+  @media (max-width:900px){.hero-grid{grid-template-columns:1fr;text-align:center;}}
+
+  .chip-frame{position:relative;width:230px;margin:0 auto;}
+  @media (min-width:901px){.chip-frame{margin:0;}}
+  .chip-frame svg{position:absolute;inset:-18px;width:calc(100% + 36px);height:calc(100% + 36px);z-index:0;}
+  .chip-photo{
+    position:relative;z-index:1;width:230px;height:230px;border-radius:20px;overflow:hidden;
+    border:2px solid var(--copper);box-shadow:0 0 0 6px rgba(219,154,92,0.08), 0 25px 60px rgba(0,0,0,0.5);
+  }
+  .chip-photo img{width:100%;height:100%;object-fit:cover;}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--cyan);font-size:0.76rem;margin-bottom:16px;}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);}
+  @media (max-width:900px){.eyebrow{justify-content:center;}}
+
+  .hero h1{font-size:clamp(2.1rem,4.6vw,3.1rem);margin:0 0 8px;}
+  .hero .role{font-family:'IBM Plex Mono',monospace;color:var(--copper);font-size:1rem;margin:0 0 18px;}
+  .hero p.sub{color:var(--muted);max-width:560px;line-height:1.7;margin:0 0 28px;}
+  @media (max-width:900px){.hero p.sub{margin-left:auto;margin-right:auto;}}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:32px;}
+  @media (max-width:900px){.hero-ctas{justify-content:center;}}
+  .cta-ghost{
+    font-weight:600;font-size:0.85rem;background:transparent;color:var(--text);
+    padding:10px 20px;border-radius:8px;text-decoration:none;border:1px solid var(--line);
+    transition:border-color .2s;display:inline-block;
+  }
+  .cta-ghost:hover{border-color:var(--cyan);}
+
+  .badge-row{display:flex;gap:10px;flex-wrap:wrap;}
+  @media (max-width:900px){.badge-row{justify-content:center;}}
+  .badge{
+    display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;
+    background:var(--surface);border:1px solid var(--line);padding:7px 12px;border-radius:999px;
+    text-decoration:none;color:var(--muted);transition:border-color .2s, color .2s;
+  }
+  .badge:hover{border-color:var(--copper);color:var(--text);}
+
+  .stat-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:44px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  @media (max-width:900px){.stat-strip{grid-template-columns:repeat(2,1fr);}}
+  .stat-cell{padding:20px 14px;text-align:center;border-right:1px solid var(--line);}
+  .stat-cell:last-child{border-right:none;}
+  @media (max-width:900px){.stat-cell:nth-child(2n){border-right:none;} .stat-cell{border-bottom:1px solid var(--line);}}
+  .stat-cell b{display:block;font-family:'Fraunces',serif;font-size:1.5rem;color:var(--copper);}
+  .stat-cell span{font-size:0.72rem;color:var(--muted2);}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:80px 0;position:relative;z-index:1;}
+  .sec-head{margin-bottom:44px;max-width:680px;}
+  .sec-eyebrow{color:var(--copper);font-size:0.74rem;margin-bottom:12px;display:block;}
+  .sec-head h2{font-size:clamp(1.7rem,3.4vw,2.3rem);margin:0 0 12px;}
+  .sec-head p{color:var(--muted);line-height:1.7;font-size:0.97rem;}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;}
+  @media (max-width:820px){.about-grid{grid-template-columns:1fr;}}
+  .fact-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+  .fact-list li{display:flex;justify-content:space-between;gap:14px;font-size:0.88rem;border-bottom:1px solid var(--line);padding-bottom:12px;}
+  .fact-list li span:first-child{color:var(--muted2);}
+  .fact-list li span:last-child{text-align:right;color:var(--text);font-weight:500;}
+
+  /* skill chips */
+  .chip-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .skill-chip{
+    font-size:0.85rem;font-weight:500;background:var(--surface2);border:1px solid var(--line);
+    padding:9px 16px;border-radius:999px;transition:border-color .2s,transform .2s;
+  }
+  .skill-chip:hover{border-color:var(--cyan);transform:translateY(-2px);}
+
+  /* timeline */
+  .timeline{position:relative;}
+  .timeline::before{content:"";position:absolute;left:130px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--copper),var(--cyan));}
+  @media (max-width:700px){.timeline::before{left:18px;}}
+  .t-item{display:grid;grid-template-columns:112px 34px 1fr;margin-bottom:34px;}
+  @media (max-width:700px){.t-item{grid-template-columns:0 34px 1fr;}}
+  .t-date{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted2);text-align:right;padding-right:18px;padding-top:4px;}
+  @media (max-width:700px){.t-date{display:none;}}
+  .t-dot-col{display:flex;justify-content:center;}
+  .t-dot{width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--copper);margin-top:4px;z-index:2;}
+  .t-item.now .t-dot{border-color:var(--cyan);box-shadow:0 0 0 6px rgba(79,214,208,0.15);}
+  .t-content{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;}
+  .t-date-mobile{display:none;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--copper);margin-bottom:8px;}
+  @media (max-width:700px){.t-date-mobile{display:block;}}
+  .t-role{font-weight:700;font-size:1.02rem;margin:0 0 3px;}
+  .t-org{color:var(--copper);font-size:0.85rem;margin:0 0 12px;}
+  .t-content ul{margin:0;padding-left:18px;color:var(--muted);font-size:0.88rem;line-height:1.7;}
+  .t-content .sub-head{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.06em;margin:14px 0 6px;}
+
+  /* patents */
+  .patent-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  @media (max-width:760px){.patent-grid{grid-template-columns:1fr;}}
+  .patent-card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--copper);border-radius:12px;padding:22px;}
+  .patent-card .tag{font-family:'IBM Plex Mono',monospace;font-size:0.66rem;color:var(--copper);text-transform:uppercase;letter-spacing:.06em;}
+  .patent-card h3{font-size:1.02rem;margin:8px 0 10px;}
+  .patent-card p{color:var(--muted);font-size:0.85rem;margin:0;}
+
+  /* funding table */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;}
+  table{width:100%;border-collapse:collapse;font-size:0.85rem;min-width:760px;}
+  thead th{
+    text-align:left;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:.05em;
+    color:var(--muted2);background:var(--surface2);padding:12px 16px;border-bottom:1px solid var(--line);
+  }
+  tbody td{padding:13px 16px;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top;}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody td.title-cell{color:var(--text);font-weight:500;}
+  .status{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;padding:3px 9px;border-radius:6px;display:inline-block;}
+  .status.sanctioned{background:rgba(79,214,208,0.12);color:var(--cyan);}
+  .status.rejected{background:rgba(219,154,92,0.10);color:var(--muted2);}
+
+  /* projects grid */
+  .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media (max-width:900px){.project-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:560px){.project-grid{grid-template-columns:1fr;}}
+  .project-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;font-size:0.88rem;color:var(--muted);position:relative;padding-left:38px;}
+  .project-card::before{content:"⚡";position:absolute;left:16px;top:18px;color:var(--copper);font-size:0.9rem;}
+
+  /* achievements */
+  .achieve-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;}
+  .achieve-item{display:flex;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+  .achieve-icon{flex:none;width:36px;height:36px;border-radius:8px;background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--copper);font-size:1.1rem;}
+  .achieve-item p{margin:0;color:var(--muted);font-size:0.9rem;line-height:1.6;}
+  .achieve-item b{color:var(--text);}
+
+  /* publications tabs */
+  .pub-tabs{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;}
+  .pub-tab{
+    font-weight:600;font-size:0.85rem;background:var(--surface);border:1px solid var(--line);color:var(--muted);
+    padding:10px 20px;border-radius:999px;cursor:pointer;transition:border-color .2s,color .2s,background .2s;
+  }
+  .pub-tab.active{background:var(--copper);border-color:var(--copper);color:#1a0f05;}
+  .pub-tab:not(.active):hover{border-color:var(--cyan);color:var(--text);}
+  .pub-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;max-height:560px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;}
+  .pub-item{display:flex;gap:14px;padding:16px 20px;border-bottom:1px solid var(--line);background:var(--surface);font-size:0.86rem;color:var(--muted);line-height:1.6;}
+  .pub-item:last-child{border-bottom:none;}
+  .pub-item .idx{flex:none;font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--copper);width:26px;}
+  .pub-item b{color:var(--text);}
+
+  /* fdp / courses */
+  .two-col-list{columns:2 260px;column-gap:28px;}
+  @media (max-width:640px){.two-col-list{columns:1;}}
+  .check-item{break-inside:avoid;display:flex;gap:10px;font-size:0.86rem;color:var(--muted);padding:9px 0;border-bottom:1px solid var(--line);}
+  .check-item::before{content:"✓";color:var(--cyan);flex:none;font-weight:700;}
+  .check-item b{color:var(--text);font-weight:500;}
+
+  /* certifications gallery */
+  .cert-tabs{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;}
+  .cert-grid{columns:4 200px;column-gap:16px;}
+  @media (max-width:900px){.cert-grid{columns:2 200px;}}
+  @media (max-width:520px){.cert-grid{columns:1;}}
+  .cert-item{margin:0 0 16px;break-inside:avoid;border-radius:12px;overflow:hidden;border:1px solid var(--line);
+    cursor:zoom-in;background:var(--surface);position:relative;}
+  .cert-item img{display:block;width:100%;height:auto;transition:transform .35s ease;}
+  .cert-item:hover img{transform:scale(1.04);}
+  .cert-item figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:12px 12px 10px;
+    background:linear-gradient(to top, rgba(6,9,16,0.94), transparent);
+    font-size:0.72rem;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .2s, transform .2s;
+  }
+  .cert-item:hover figcaption{opacity:1;transform:translateY(0);}
+
+  /* photo gallery */
+  .photo-grid{columns:3 240px;column-gap:16px;}
+  @media (max-width:760px){.photo-grid{columns:2 220px;}}
+  @media (max-width:480px){.photo-grid{columns:1;}}
+  .photo-item{margin:0 0 16px;break-inside:avoid;border-radius:12px;overflow:hidden;border:1px solid var(--line);cursor:zoom-in;position:relative;}
+  .photo-item img{display:block;width:100%;height:auto;transition:transform .35s ease;}
+  .photo-item:hover img{transform:scale(1.05);}
+  .photo-item figcaption{
+    position:absolute;left:0;right:0;bottom:0;padding:12px 14px 10px;
+    background:linear-gradient(to top, rgba(6,9,16,0.92), transparent);
+    font-size:0.75rem;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .2s, transform .2s;
+  }
+  .photo-item:hover figcaption{opacity:1;transform:translateY(0);}
+
+  .lightbox{position:fixed;inset:0;background:rgba(4,6,10,0.94);z-index:200;display:none;align-items:center;justify-content:center;padding:40px;backdrop-filter:blur(6px);}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:100%;max-height:90vh;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,0.6);}
+  .lightbox-close{position:absolute;top:22px;right:26px;background:var(--surface);border:1px solid var(--line);color:var(--text);width:40px;height:40px;border-radius:50%;font-size:1.1rem;cursor:pointer;}
+  .lightbox-close:hover{border-color:var(--copper);}
+
+  /* education */
+  .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media (max-width:860px){.edu-grid{grid-template-columns:1fr;}}
+  .edu-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;}
+  .edu-card .deg{font-family:'Fraunces',serif;font-size:1.15rem;margin:0 0 6px;}
+  .edu-card .inst{color:var(--copper);font-size:0.85rem;margin:0 0 4px;}
+  .edu-card .yr{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--muted2);margin-bottom:14px;}
+  .edu-card p{color:var(--muted);font-size:0.83rem;line-height:1.6;margin:6px 0 0;}
+
+  /* profiles band */
+  .profile-band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .profile-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+  @media (max-width:900px){.profile-grid{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:560px){.profile-grid{grid-template-columns:repeat(2,1fr);}}
+  .profile-card{
+    display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;
+    background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:22px 14px;
+    text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s;
+  }
+  .profile-card:hover{border-color:var(--copper);transform:translateY(-3px);}
+  .profile-card .p-icon{width:34px;height:34px;color:var(--copper);}
+  .profile-card span{font-size:0.8rem;font-weight:600;}
+
+  /* contact */
+  .contact{text-align:center;background:linear-gradient(160deg, var(--surface2), var(--bg) 75%);}
+  .contact h2{font-size:clamp(1.9rem,4.4vw,2.7rem);margin:0 0 18px;}
+  .contact p.sub{color:var(--muted);max-width:520px;margin:0 auto 36px;line-height:1.7;}
+  .contact-cards{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;}
+  .c-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 26px;text-align:left;min-width:220px;text-decoration:none;transition:border-color .2s,transform .2s;}
+  .c-card:hover{border-color:var(--copper);transform:translateY(-3px);}
+  .c-card .label{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;color:var(--muted2);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:6px;}
+  .c-card .value{font-weight:600;font-size:0.92rem;}
+
+  footer{padding:28px 0;text-align:center;color:var(--muted2);font-size:0.8rem;border-top:1px solid var(--line);}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">G. MANIKANNAN<span>.</span></div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li class="nav-cta-mobile"><a href="#contact" class="cta-btn">Contact</a></li>
+      </ul>
+      <a href="#contact" class="cta-btn nav-cta-desktop" style="margin-left:20px;">Contact</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="chip-frame">
+        <svg viewBox="0 0 240 240" fill="none">
+          <rect x="20" y="20" width="200" height="200" rx="22" stroke="#DB9A5C" stroke-opacity="0.35" stroke-width="1.5"/>
+          <line x1="0" y1="60" x2="20" y2="60" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="0" y1="120" x2="20" y2="120" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="0" y1="180" x2="20" y2="180" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="220" y1="60" x2="240" y2="60" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="220" y1="120" x2="240" y2="120" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="220" y1="180" x2="240" y2="180" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="60" y1="0" x2="60" y2="20" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="120" y1="0" x2="120" y2="20" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="180" y1="0" x2="180" y2="20" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="60" y1="220" x2="60" y2="240" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="120" y1="220" x2="120" y2="240" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <line x1="180" y1="220" x2="180" y2="240" stroke="#4FD6D0" stroke-opacity="0.5" stroke-width="2"/>
+          <circle cx="20" cy="60" r="3" fill="#4FD6D0"/><circle cx="20" cy="120" r="3" fill="#4FD6D0"/><circle cx="20" cy="180" r="3" fill="#4FD6D0"/>
+          <circle cx="220" cy="60" r="3" fill="#4FD6D0"/><circle cx="220" cy="120" r="3" fill="#4FD6D0"/><circle cx="220" cy="180" r="3" fill="#4FD6D0"/>
+          <circle cx="60" cy="20" r="3" fill="#4FD6D0"/><circle cx="120" cy="20" r="3" fill="#4FD6D0"/><circle cx="180" cy="20" r="3" fill="#4FD6D0"/>
+          <circle cx="60" cy="220" r="3" fill="#4FD6D0"/><circle cx="120" cy="220" r="3" fill="#4FD6D0"/><circle cx="180" cy="220" r="3" fill="#4FD6D0"/>
+        </svg>
+        <div class="chip-photo"><img src="assets/images/profile-photo.jpg" alt="Manikannan G"></div>
+      </div>
+
+      <div>
+        <span class="eyebrow mono">Assistant Professor · ECE · Cuddalore, Tamil Nadu</span>
+        <h1 class="display">Manikannan G</h1>
+        <p class="role">Ph.D (ECE) — IoT &amp; Embedded Systems Researcher</p>
+        <p class="sub">Assistant Professor at CK College of Engineering &amp; Technology with a decade of teaching and applied research in IoT, VLSI and embedded systems — building patented IoT hardware, mentoring national hackathon-winning student teams, and publishing across water management, machine learning and antenna design.</p>
+        <div class="hero-ctas">
+          <a href="#experience" class="cta-btn">View experience</a>
+          <a href="#publications" class="cta-ghost">See publications</a>
+        </div>
+        <div class="badge-row">
+          <a href="https://www.linkedin.com/in/mani-kannan-79319b47" target="_blank" rel="noopener" class="badge">LinkedIn ↗</a>
+          <a href="https://orcid.org/0000-0001-5472-6200" target="_blank" rel="noopener" class="badge">ORCID ↗</a>
+          <a href="https://scholar.google.com/citations?user=tISVoy0AAAAJ&hl=en" target="_blank" rel="noopener" class="badge">Google Scholar ↗</a>
+          <a href="https://www.scopus.com/authid/detail.uri?authorId=57194066015" target="_blank" rel="noopener" class="badge">Scopus ↗</a>
+          <a href="https://www.webofscience.com/wos/author/record/AFI-5294-2022" target="_blank" rel="noopener" class="badge">Web of Science ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="stat-strip reveal">
+        <div class="stat-cell"><b>10+</b><span>Years in academia</span></div>
+        <div class="stat-cell"><b>16</b><span>Journal publications</span></div>
+        <div class="stat-cell"><b>12</b><span>Conference papers</span></div>
+        <div class="stat-cell"><b>2</b><span>Patents filed</span></div>
+        <div class="stat-cell"><b>₹1L</b><span>SIH 2024 mentor prize won</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">About</span>
+        <h2 class="display">Objective</h2>
+      </div>
+      <div class="about-grid">
+        <div class="panel reveal">
+          <p style="color:var(--muted);line-height:1.8;margin:0;">To be affiliated with a prestigious institution, improve the standard of the profession, and empower students with the necessary skills, qualities, knowledge, attitude and value of time — through hands-on IoT product development, applied research and mentorship.</p>
+          <div class="sub-head mono" style="margin-top:22px;color:var(--muted2);font-size:0.68rem;">Technical skills &amp; tools</div>
+          <div class="chip-row" style="margin-top:12px;">
+            <span class="skill-chip">IoT</span>
+            <span class="skill-chip">Arduino IDE</span>
+            <span class="skill-chip">KiCad</span>
+            <span class="skill-chip">Cadence Virtuoso</span>
+            <span class="skill-chip">Xilinx ISE / PlanAhead</span>
+            <span class="skill-chip">Altera Quartus II</span>
+            <span class="skill-chip">Multisim PCB</span>
+            <span class="skill-chip">Eagle PCB Layout</span>
+            <span class="skill-chip">MATLAB</span>
+            <span class="skill-chip">Drone/UAV</span>
+          </div>
+        </div>
+        <div class="panel reveal">
+          <ul class="fact-list">
+            <li><span>Current role</span><span>Assistant Professor, ECE</span></li>
+            <li><span>Institution</span><span>CK College of Engineering &amp; Technology, Cuddalore</span></li>
+            <li><span>Since</span><span>12 Oct 2015</span></li>
+            <li><span>Highest degree</span><span>Ph.D (ECE), 2022</span></li>
+            <li><span>Research area</span><span>IoT-based Smart Water Management System for Puducherry City</span></li>
+            <li><span>Location</span><span>Villupuram District, Tamil Nadu</span></li>
+            <li><span>Memberships</span><span>Life Member ISTE · Member IETE</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Career journey</span>
+        <h2 class="display">Experience</h2>
+        <p>From process engineering and IC design into a decade of teaching, IoT product leadership and applied research.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="t-item now reveal">
+          <div class="t-date">12 Oct 2015 – Present</div>
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-content">
+            <span class="t-date-mobile">12 Oct 2015 – Present</span>
+            <p class="t-role">Assistant Professor</p>
+            <p class="t-org">CK College of Engineering &amp; Technology, Cuddalore</p>
+            <div class="sub-head mono">Roles &amp; responsibilities</div>
+            <ul>
+              <li>IoT Product Development Lead</li>
+              <li>Students' Innovation Cell</li>
+              <li>Placement Coordinator</li>
+              <li>Association Coordinator</li>
+              <li>Industrial Practical Knowledge Training Coordinator</li>
+              <li>ISTE Coordinator</li>
+            </ul>
+            <div class="sub-head mono">Funding received</div>
+            <ul>
+              <li>₹1,00,000 — AICTE ATAL FDP</li>
+              <li>₹12,000 revenue generated — 3-Day Value Added Course on "Connect with IoT" (12–14 Mar 2020)</li>
+              <li>₹7,500 — TNSCST Students Project Scheme 2019–20, "Monitoring &amp; Controlling of Humidity and Temperature in Poultry Farms using IoT"</li>
+              <li>₹7,500 — TNSCST Students Project Scheme 2022–23, "Intelligent Edge IoT enabled Livestock Management Framework System"</li>
+              <li>₹5,000 — IETE Students Forum, One-day Workshop on Embedded Systems (28.02.2018)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="t-item reveal">
+          <div class="t-date">Jul 2014 – Aug 2015</div>
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-content">
+            <span class="t-date-mobile">15 Jul 2014 – 31 Aug 2015</span>
+            <p class="t-role">IC Design Engineer</p>
+            <p class="t-org">Analogix VLSI Research and Training Institute</p>
+            <ul>
+              <li>VLSI circuit design, physical design and circuit verification; VHDL/Verilog coding, synthesis, mapping and routing</li>
+              <li>PCB circuit design, track layout and etching process</li>
+              <li>Delivered training seminars on Cadence and PCB tools</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="t-item reveal">
+          <div class="t-date">May – Jun 2014</div>
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-content">
+            <span class="t-date-mobile">19 May 2014 – 27 Jun 2014</span>
+            <p class="t-role">Process Engineer Trainee</p>
+            <p class="t-org">Memucan Electronics</p>
+            <ul><li>GSL Active Plus, EMI &amp; motor control, inverter boards, relay boards, crimping works</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATENTS -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">IP &amp; innovation</span>
+        <h2 class="display">Patents filed</h2>
+      </div>
+      <div class="patent-grid">
+        <div class="patent-card reveal">
+          <span class="tag">Published · Journal No. 22/2020</span>
+          <h3>IoT based Intelligent Portable Power Outlet with Real Time Monitoring</h3>
+          <p>Applied 27.04.2020 · Published in The Patent Office Journal No. 22/2020, dated 29.05.2020.</p>
+        </div>
+        <div class="patent-card reveal">
+          <span class="tag">Published · Journal No. 48/2022</span>
+          <h3>Solution for Water Management and Leakage Detection Problems using IoT</h3>
+          <p>Applied 29.11.2022 · Published in The Patent Office Journal No. 48/2022, dated 02.12.2022.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNDING -->
+  <section style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Research funding</span>
+        <h2 class="display">Funding &amp; proposals</h2>
+        <p>Submitted and secured funding across AICTE-ATAL, TNSCST and CSIR schemes.</p>
+      </div>
+      <div class="table-wrap reveal">
+        <table>
+          <thead><tr><th>Year</th><th>Agency / Scheme</th><th>Title</th><th>Role</th><th>Budget</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>2025–26</td><td>ATAL – AICTE FDP</td><td class="title-cell">Advanced Materials for Next-Generation Space and Defence Technologies</td><td>Co-coordinator</td><td>₹1,00,000</td><td><span class="status sanctioned">Sanctioned</span></td></tr>
+            <tr><td>2022–23</td><td>CSIR Women Scientist</td><td class="title-cell">AI-Based Water Demand Prediction and Real-time IoT Enabled Quality Monitoring for Puducherry Region</td><td>Co-PI</td><td>₹19,39,580</td><td><span class="status rejected">Rejected</span></td></tr>
+            <tr><td>2022–23</td><td>TNSCST SPS</td><td class="title-cell">Intelligent Edge IoT enabled Livestock Management Framework System</td><td>Guide</td><td>₹7,500</td><td><span class="status sanctioned">Sanctioned</span></td></tr>
+            <tr><td>2021–22</td><td>TNSCST S&amp;T</td><td class="title-cell">An Intelligent Edge-IoT Enabled Livestock Management Framework in Real Time</td><td>Co-PI</td><td>₹4,85,000</td><td><span class="status rejected">Rejected</span></td></tr>
+            <tr><td>2019–20</td><td>TNSCST SPS</td><td class="title-cell">Monitoring and Controlling of Humidity and Temperature in Poultry Farms using IoT</td><td>Guide</td><td>₹7,500</td><td><span class="status sanctioned">Sanctioned</span></td></tr>
+            <tr><td>2018–19</td><td>AICTE STTP</td><td class="title-cell">Short Term Training Programme on "Internet of Things (IoT)"</td><td>Coordinator</td><td>₹5,00,000</td><td><span class="status rejected">Rejected</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Applied IoT work</span>
+        <h2 class="display">Projects developed</h2>
+      </div>
+      <div class="project-grid">
+        <div class="project-card reveal">Identification of nearby EV Charging Stations and their State of Charge (SoC) using IoT</div>
+        <div class="project-card reveal">IoT based real-time monitoring and controlling low-cost efficient incubator for eggs</div>
+        <div class="project-card reveal">Smart Fire and Gas Detection and Alert System for Industries</div>
+        <div class="project-card reveal">IoT system to measure Load Weight in a Dumper</div>
+        <div class="project-card reveal">Autonomous Hairpin Drive Alert System in Hilly Regions</div>
+        <div class="project-card reveal">Real Time Women's Safety Wrist Band with built-in Healthcare System</div>
+        <div class="project-card reveal">IoT enabled Smart Switch with easy electrical interfacing</div>
+        <div class="project-card reveal">IoT based fluid management system for healthcare</div>
+        <div class="project-card reveal">Product development on Hydroponics Fodder Farming</div>
+        <div class="project-card reveal">Automated monitoring and controlling of Agriculture using IoT</div>
+        <div class="project-card reveal">Driver Drowsiness Alert System</div>
+        <div class="project-card reveal">IoT-Enabled Smart Kitchen Inventory Monitoring and Low-Stock Alert System Using ESP32</div>
+        <div class="project-card reveal">Tariff-Aware Embedded Energy Management and Intelligent Load Control System for Residential Consumers in Tamil Nadu</div>
+        <div class="project-card reveal">IoT-Based Real-Time Oil Spill Detection, Monitoring, and Early Warning Alert System</div>
+        <div class="project-card reveal">IoT-Enabled Smart Theft Detection, Intrusion Monitoring, and Real-Time Alert System</div>
+        <div class="project-card reveal">IoT-Based Smart Air Quality Monitoring and Real-Time Pollution Level Alert System</div>
+        <div class="project-card reveal">IoT-Enabled Smart Water Quality Monitoring and Real-Time Contamination Detection System</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Recognition</span>
+        <h2 class="display">Achievements</h2>
+      </div>
+      <ul class="achieve-list">
+        <li class="achieve-item reveal"><div class="achieve-icon">🏆</div><p><b>Mentor, Smart India Hackathon 2024</b> — guided team "Agile Avengers" to the 1st Prize of ₹1,00,000 at the Grand Finale, Panipat Institute of Engineering &amp; Technology, Haryana.</p></li>
+        <li class="achieve-item reveal"><div class="achieve-icon">🧭</div><p><b>Evaluator, Smart India Hackathon 2022</b> — evaluated 15 projects in the IoT domain.</p></li>
+        <li class="achieve-item reveal"><div class="achieve-icon">🎤</div><p><b>Resource Person</b> — Three-Day Value Added Course on "Connect with Internet of Things (IoT)", 12–14 March 2020.</p></li>
+        <li class="achieve-item reveal"><div class="achieve-icon">📡</div><p><b>Guest Lecture</b> — "Connect with IoT", Department of Instrumentation, SMVEC Pondicherry, 19 November 2021.</p></li>
+        <li class="achieve-item reveal"><div class="achieve-icon">🎓</div><p><b>Academic Excellence Award</b> — Academic Year 2018–19.</p></li>
+        <li class="achieve-item reveal"><div class="achieve-icon">📝</div><p><b>Institute Representative (IR)</b> — for NPTEL End Semester Examinations.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Research output</span>
+        <h2 class="display">Publications</h2>
+        <p>16 journal articles and 12 conference papers spanning IoT, VLSI, antenna design and machine learning.</p>
+      </div>
+      <div class="pub-tabs reveal">
+        <button class="pub-tab active" data-target="journalList">Journals (16)</button>
+        <button class="pub-tab" data-target="confList">Conferences (12)</button>
+      </div>
+
+      <ul class="pub-list reveal" id="journalList">
+        <li class="pub-item"><span class="idx">01</span><span><b>Manikannan G., and K. Jayanthi.</b> "Hyperparameter: optimized XGBoost for water demand forecasting using temporal and contextual features." <i>Discover Computing</i> 29.1 (2026).</span></li>
+        <li class="pub-item"><span class="idx">02</span><span>V. Kannadhasan, K. Mahendran, R. Indhu, <b>G. Manikannan</b>, "Strategic design of nitrogen and sulphur co-doped biocarbon/nickel hexacyanoferrate nanocomposite for efficient removal of ciprofloxacin and amoxicillin antibiotics from water," <i>Diamond and Related Materials</i>, Vol. 156, 2025, 112420.</span></li>
+        <li class="pub-item"><span class="idx">03</span><span>Selvaganapathy M., Nishavithri N., Prabakaran P., <b>Manikannan G.</b>, "MANET Based Emergency Communication System Design during Disaster &amp; Post-Disaster," <i>ECS Transactions</i>, Vol. 107, 2022, pp. 17411–17420.</span></li>
+        <li class="pub-item"><span class="idx">04</span><span>Dr. M. Arulaalan, Mr. K. Mahendran, Mr. P. Prabakaran, <b>G. Manikannan</b>, "Design of MIMO Triangular Microstrip Patch Antenna for IEEE 802.11a Application," <i>Inventive Communication and Computational Technologies</i>, LNNS, Springer, Vol. 89, p. 369.</span></li>
+        <li class="pub-item"><span class="idx">05</span><span>M. Pavithra, <b>G. Manikannan</b>, "An Efficient Strobe Switch Based Chip-to-Chip Interconnect for NNAs," <i>MJARET</i>, Vol. 2 Issue 5, 2022, pp. 60–67.</span></li>
+        <li class="pub-item"><span class="idx">06</span><span><b>G. Manikannan</b>, P. Prabakaran &amp; M. Selvaganapathy, "Optimization of Leakage Power and Inrush Current in MTCMOS Designs Using Wake Up Control Technique," <i>International Journal of Engineering Research Online</i>, Vol. 4 No. 6, Nov–Dec 2016.</span></li>
+        <li class="pub-item"><span class="idx">07</span><span><b>G. Manikannan</b>, P. Prabakaran, "Design and Analysis of Enhanced Power Gating Technique to Reduce Leakage Power and Ground Bounce Noise for CMOS Applications," <i>IJRAR</i>, Vol. 5, Issue 4, Oct 2018.</span></li>
+        <li class="pub-item"><span class="idx">08</span><span><b>G. Manikannan</b>, B. Theeban Chakkaravarthy, "Design of 1KB 6T Static Random Access Memory in Deep Submicron CMOS 45nm Technologies," <i>IAETSD Journal for Advanced Research in Applied Sciences</i>, Vol. 5, Issue 4, April 2018, p. 235.</span></li>
+        <li class="pub-item"><span class="idx">09</span><span>M. Selvaganapathy, N. Nishavithri, T. Manochandar &amp; <b>G. Manikannan</b>, "Modern Vehicle for the Physically Challenged People Using Blue Eye Technology," <i>International Journal of Mechanical Engineering &amp; Technology</i>, Vol. 8 No. 1, Nov–Dec 2017.</span></li>
+        <li class="pub-item"><span class="idx">10</span><span>Dr. M. Arulaalan, Dr. L. Nithyanandan, Mr. Prabakaran, <b>G. Manikannan</b>, "Comparison of Various Contact Feeding Techniques for Triangular Microstrip Patch Antenna," <i>JASC</i>, Vol. V, Issue XII, Dec 2018, p. 557.</span></li>
+        <li class="pub-item"><span class="idx">11</span><span>T. Manochandar, <b>G. Manikannan</b>, K. Mahendran, "Microcontroller Based Electronic Control Board for Laser Cutter and Engraver," <i>IJETT</i>, Vol. 40 No. 6, Oct 2016, p. 325.</span></li>
+        <li class="pub-item"><span class="idx">12</span><span>M. Selvaganapathy, <b>G. Manikannan</b>, "Design Firmware for 360 Degree Imaging &amp; Calibration Using Virtual Instrumentation," <i>International Journal of Engineering Development and Research</i>, Vol. 5, Issue 3, Sept 2017.</span></li>
+        <li class="pub-item"><span class="idx">13</span><span><b>G. Manikannan</b>, B. Nishanthi, "Power Supply Noise Rejection Circuit using Active Inductor and Active Capacitor in Mixed Signal Systems," <i>IJERT</i>, Vol. 4 Issue 11, Nov 2015, p. 489.</span></li>
+        <li class="pub-item"><span class="idx">14</span><span>P. Prabakaran, B. Theeban Chakkaravarthy, <b>G. Manikannan</b>, "Design of Carry Skip Adder Using High Speed Skip Logic in Xilinx Platform," <i>International Journal of Engineering Development and Research</i>, Vol. 5, Issue 4, 2017, p. 281.</span></li>
+        <li class="pub-item"><span class="idx">15</span><span>K. Mahendran, <b>G. Manikannan</b>, "Survey on Different Types of Reconfigurable Patch Antenna for Wireless Applications," <i>International Journal of Engineering Development and Research</i>, Vol. 5, Issue 3, 2017, p. 1025.</span></li>
+        <li class="pub-item"><span class="idx">16</span><span><b>G. Manikannan</b>, "Design and Analysis of Power Supply Noise Rejection Circuit Using Active Inductor and Active Capacitor with High PSSR," Integrated Publishers, March 2014, ISBN 978-81-910991-0-2.</span></li>
+      </ul>
+
+      <ul class="pub-list reveal" id="confList" style="display:none;">
+        <li class="pub-item"><span class="idx">01</span><span><b>Manikannan Govindasamy.</b> "Real Time Monitoring and Control of Rural Water System." 9th National Conference SILICON'25, CIPHER 6, 26–27 Feb 2025.</span></li>
+        <li class="pub-item"><span class="idx">02</span><span><b>Manikannan Govindasamy.</b> "AI-Driven Smart Drainage Blockage Detection and Real-Time Alert System Using IoT Technology." 9th National Conference SILICON'25, CIPHER 6, 26–27 Feb 2025.</span></li>
+        <li class="pub-item"><span class="idx">03</span><span><b>Manikannan Govindasamy.</b> "Water Demand Prediction with ARIMA-Based Machine Learning Techniques." 8th National Conference SILICON'24, 28–29 Feb 2024.</span></li>
+        <li class="pub-item"><span class="idx">04</span><span><b>Manikannan Govindasamy</b>, Jayanthi K., &amp; Rajagopan S. "IoT Product on Smart Water Quality Monitoring System (IoT WQ-Kit) for Puducherry Union Territory." 2nd International Conference on Advances in Computational Intelligence and Communication (ICACIC), Dec 2023.</span></li>
+        <li class="pub-item"><span class="idx">05</span><span><b>Manikannan G.</b>, Prabakaran P., Selvaganapathy M., "IoT Enabled Smart Switch with User-Friendly Electrical Interfacing." 1st IEEE International Conference on Smart Technologies and Systems for Next Generation Computing (ICSTSN 2022).</span></li>
+        <li class="pub-item"><span class="idx">06</span><span><b>G. Manikannan</b>, P. Prabakaran, "A Dual Mode 1.8V-Output DC-DC Buck Converter with On-Chip Capacitor Multiplier in 0.18μm CMOS." National Conference on Technical Revolution, Pune, 2019.</span></li>
+        <li class="pub-item"><span class="idx">07</span><span><b>G. Manikannan</b>, "Design of MIMO Triangular Microstrip Patch Antenna for IEEE 802.11a Application." International Conference on Inventive Communication and Computational Technologies, 2019.</span></li>
+        <li class="pub-item"><span class="idx">08</span><span><b>G. Manikannan</b>, "Implementation of IoT Based Smart VVMAT Electronic Voting Machine." International Conference on Recent Trends in Science, Engineering &amp; Technology, 2019.</span></li>
+        <li class="pub-item"><span class="idx">09</span><span><b>G. Manikannan</b>, K. Mahendran, P. Prabakaran, "Low Power High Speed Full Adder Cell with XOR/XNOR Logic Gates in 90nm Technology." ICTACC 2017, IEEE Computer Society.</span></li>
+        <li class="pub-item"><span class="idx">10</span><span><b>G. Manikannan</b>, S. Arunmozhi, "Design and Analysis of Power Supply Noise Rejection Circuit using Active Inductor and Active Capacitor with High PSSR." National Conference on Inventions in Communication and Instrumentation, Kalaivani College of Technology, Coimbatore, 2014.</span></li>
+        <li class="pub-item"><span class="idx">11</span><span><b>G. Manikannan</b>, "Reduction of Power Consumption in VLSI by Energy Efficient Low Power CMOS Design." International Conference on Emerging Trends in Electronics Communication and Computing Technology, 2016.</span></li>
+        <li class="pub-item"><span class="idx">12</span><span><b>G. Manikannan</b>, B. Theeban Chakkaravarthy, "Implementation of 1KB 6T SRAM Cell in Deep Submicron CMOS 45nm Technologies." ICONSET 2018.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROGRAMS / FDP / COURSES -->
+  <section style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Faculty development</span>
+        <h2 class="display">Programs organized &amp; attended</h2>
+      </div>
+
+      <div class="panel reveal" style="margin-bottom:24px;">
+        <div class="sub-head mono" style="color:var(--muted2);font-size:0.68rem;margin-bottom:14px;">Programs organized</div>
+        <div class="check-item"><span><b>Advanced Materials for Next-Generation Space and Defence Technologies</b> — AICTE-ATAL FDP, 21–27 Aug 2025</span></div>
+        <div class="check-item"><span><b>Altair PSIM and Flux Motor</b> — FDP for internal &amp; external faculty, 3–7 Feb 2025</span></div>
+        <div class="check-item"><span><b>Altair HyperWorks &amp; OptiStruct</b> — FDP for internal &amp; external faculty, 3–7 Feb 2025</span></div>
+      </div>
+
+      <div class="panel reveal">
+        <div class="sub-head mono" style="color:var(--muted2);font-size:0.68rem;margin-bottom:14px;">FDPs, seminars &amp; workshops attended</div>
+        <div class="two-col-list">
+          <div class="check-item"><span>ATAL FDP — Emerging Trends in Digital Twin Technology for Hydrogen Production, Storage and Transport, 15–20 Dec 2025</span></div>
+          <div class="check-item"><span>ATAL FDP — The Future of Movement: Smart Cities, 8–13 Dec 2025</span></div>
+          <div class="check-item"><span>ATAL FDP — Driving the Future 2025–2030: Smart Cities and Urban Mobility, 20–25 Jan 2025</span></div>
+          <div class="check-item"><span>ATAL FDP — 5G Antenna Design Engineering, 6–10 Dec 2021</span></div>
+          <div class="check-item"><span>ATAL FDP — Innovation in Telemedicine in Rural India (AI, Medical Devices &amp; IoT), 15–19 Jun 2021</span></div>
+          <div class="check-item"><span>Six-day Virtual FDP on VLSI Design, 18–23 Dec 2023</span></div>
+          <div class="check-item"><span>Five-Day FDP — ChatGPT &amp; AI Tools for Academicians, 27 Nov – 1 Dec 2023</span></div>
+          <div class="check-item"><span>National Seminar — COBOTICS for Biomedical and Healthcare Monitoring, IFET College, Jun 2023</span></div>
+          <div class="check-item"><span>Train the Trainer — Powering of IoT using Arduino/Raspberry Pi, Saranathan College, Sep 2022</span></div>
+          <div class="check-item"><span>FDP — LoRaWAN Protocol for IoT Applications, St. Anne's College, Dec 2019</span></div>
+          <div class="check-item"><span>Leading India Workshop — IoT &amp; Drones, St. Joseph's College of Engineering, Dec 2018</span></div>
+          <div class="check-item"><span>TEQIP Workshop — Evolution of 5G and IoT through Cognitive Radio Networks, NIT Trichy, May 2016</span></div>
+          <div class="check-item"><span>Workshop — Digital Image Processing using MATLAB, MVIT Puducherry</span></div>
+          <div class="check-item"><span>Workshop — Analysis and Simulation of Self-Organized Networks using NS2, MVIT Puducherry</span></div>
+          <div class="check-item"><span>Workshop — MATLAB for Communication Engineering, MVIT Puducherry</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Continuing education</span>
+        <h2 class="display">Certifications</h2>
+        <p>15 completed online courses via NPTEL, UDEMY and Coursera — tap any certificate below to view it full-size.</p>
+      </div>
+
+      <div class="cert-grid reveal">
+        <figure class="cert-item" data-full="assets/certs/cert-08-nptel-iot.jpg"><img src="assets/certs/cert-08-nptel-iot.jpg" alt="NPTEL Introduction to Internet of Things certificate" loading="lazy"><figcaption>NPTEL — Introduction to IoT (2019)</figcaption></figure>
+        <figure class="cert-item" data-full="assets/certs/cert-11-nptel-python.jpg"><img src="assets/certs/cert-11-nptel-python.jpg" alt="NPTEL Joy of Computing using Python certificate" loading="lazy"><figcaption>NPTEL — Joy of Computing, Python (2022)</figcaption></figure>
+        <figure class="cert-item" data-full="assets/certs/cert-09-nptel-research.jpg"><img src="assets/certs/cert-09-nptel-research.jpg" alt="NPTEL Introduction to Research certificate" loading="lazy"><figcaption>NPTEL — Introduction to Research (2022)</figcaption></figure>
+        <figure class="cert-item" data-full="assets/certs/cert-10-nptel-product-design.jpg"><img src="assets/certs/cert-10-nptel-product-design.jpg" alt="NPTEL Product Design and Innovation certificate" loading="lazy"><figcaption>NPTEL — Product Design &amp; Innovation (2021)</figcaption></figure>
+        <figure class="cert-item" data-full="assets/certs/cert-06-nptel-nba-nate.jpg"><img src="assets/certs/cert-06-nptel-nba-nate.jpg" alt="NPTEL NBA Accreditation and Teaching Learning certificate" loading="lazy"><figcaption>NPTEL Elite — NBA Accreditation &amp; NATE (2025)</figcaption></figure>
+        <figure class="cert-item" data-full="assets/certs/cert-07-nptel-obl.jpg"><img src="assets/certs/cert-07-nptel-obl.jpg" alt="NPTEL Accreditation and Outcome Based Learning certificate" loading="lazy"><figcaption>NPTEL — Accreditation &amp; Outcome Based Learning (2025)</figcaption></figure>
+        <figure class="cert-item" data-full="assets/certs/cert-01-atal-5g-antenna.jpg"><img src="assets/certs/cert-01-atal-5g-antenna.jpg" alt="ATAL 5G Antenna Design Engineering certificate" loading="lazy"><figcaption>ATAL — 5G Antenna Design Engineering (2021)</figcaption></figure>
+        <figure class="cert-item" data-full="assets/certs/cert-02-atal-telemedicine.jpg"><img src="assets/certs/cert-02-atal-telemedicine.jpg" alt="ATAL Telemedicine IoT certificate" loading="lazy"><figcaption>ATAL — Telemedicine, AI &amp; IoT (2021)</figcaption></figure>
+        <figure class="cert-item" data-full="assets/certs/cert-05-atal-urban-mobility.jpg"><img src="assets/certs/cert-05-atal-urban-mobility.jpg" alt="ATAL Smart Cities Urban Mobility certificate" loading="lazy"><figcaption>ATAL — Smart Cities &amp; Urban Mobility (2025)</figcaption></figure>
+        <figure class="cert-item" data-full="assets/certs/cert-04-atal-smart-cities.jpg"><img src="assets/certs/cert-04-atal-smart-cities.jpg" alt="ATAL Future of Movement Smart Cities certificate" loading="lazy"><figcaption>ATAL — Future of Movement: Smart Cities (2025)</figcaption></figure>
+        <figure class="cert-item" data-full="assets/certs/cert-03-atal-digital-twin.jpg"><img src="assets/certs/cert-03-atal-digital-twin.jpg" alt="ATAL Digital Twin Hydrogen certificate" loading="lazy"><figcaption>ATAL — Digital Twin for Hydrogen Tech (2025)</figcaption></figure>
+      </div>
+
+      <div class="panel reveal" style="margin-top:28px;">
+        <div class="sub-head mono" style="color:var(--muted2);font-size:0.68rem;margin-bottom:14px;">Full course list</div>
+        <div class="two-col-list">
+          <div class="check-item"><span><b>Ethics in Engineering Practice</b> — IIT Kharagpur (NPTEL), Apr 2026</span></div>
+          <div class="check-item"><span><b>Accreditation and Outcome Based Learning</b> — IIT Kharagpur (NPTEL), Oct 2025</span></div>
+          <div class="check-item"><span><b>NBA Accreditation and Teaching &amp; Learning (NATE)</b> — IISc Bangalore (NPTEL), Apr 2025</span></div>
+          <div class="check-item"><span><b>Understanding Incubation and Entrepreneurship</b> — IIT Bombay (NPTEL), Oct 2024</span></div>
+          <div class="check-item"><span><b>Industry 4.0 and Industrial IoT</b> — IIT Kharagpur (NPTEL), Apr 2024</span></div>
+          <div class="check-item"><span><b>The Joy of Computing using Python</b> — IIT Madras (NPTEL), Apr 2022</span></div>
+          <div class="check-item"><span><b>Introduction to Research</b> — IIT Kharagpur (NPTEL), Oct 2022</span></div>
+          <div class="check-item"><span><b>Product Design &amp; Innovation</b> — IIT Guwahati (NPTEL), Jan 2021</span></div>
+          <div class="check-item"><span><b>Introduction to Internet of Things</b> — IIT Kharagpur (NPTEL), Apr 2019</span></div>
+          <div class="check-item"><span><b>VLSI Design Methodologies</b> — Maven Silicon Infotech, Dec 2018</span></div>
+          <div class="check-item"><span><b>VLSI Physical Design</b> — IIT Kharagpur (NPTEL), Apr 2018</span></div>
+          <div class="check-item"><span><b>MikroC and PIC Microcontroller from Scratch</b> — Udemy, Dec 2020</span></div>
+          <div class="check-item"><span><b>VLSI — Circuit Design &amp; SPICE Simulation</b> — VSD Corp (Udemy), Nov 2017</span></div>
+          <div class="check-item"><span><b>Operational Amplifier</b> — Udemy, Apr 2017</span></div>
+          <div class="check-item"><span><b>Satellite Communication</b> — Institut Mines-Télécom (Coursera), Jul 2016</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Moments</span>
+        <h2 class="display">Gallery</h2>
+        <p>From mentoring the Smart India Hackathon 2024 winning team to earlier recognitions and workshops.</p>
+      </div>
+      <div class="photo-grid reveal">
+        <figure class="photo-item" data-full="assets/photos/photo-02-sih-winner-cheque.jpg"><img src="assets/photos/photo-02-sih-winner-cheque.jpg" alt="Smart India Hackathon 2024 winning team receiving the prize cheque" loading="lazy"><figcaption>SIH 2024 Grand Finale — Team "Agile Avengers" receives the ₹1,00,000 winner's cheque</figcaption></figure>
+        <figure class="photo-item" data-full="assets/photos/photo-01-sih-banner.jpg"><img src="assets/photos/photo-01-sih-banner.jpg" alt="Smart India Hackathon 2024 team photo" loading="lazy"><figcaption>SIH 2024 — with the student team before the finale</figcaption></figure>
+        <figure class="photo-item" data-full="assets/photos/photo-05-sih-booth.jpg"><img src="assets/photos/photo-05-sih-booth.jpg" alt="Smart India Hackathon 2024 project booth" loading="lazy"><figcaption>SIH 2024 — showcasing the team's hardware prototype</figcaption></figure>
+        <figure class="photo-item" data-full="assets/photos/photo-03-world-youth-federation.jpg"><img src="assets/photos/photo-03-world-youth-federation.jpg" alt="World Youth Federation award ceremony" loading="lazy"><figcaption>World Youth Federation — 3rd Year Inspirational Event, 2018</figcaption></figure>
+        <figure class="photo-item" data-full="assets/photos/photo-04-iot-course-2020.jpg"><img src="assets/photos/photo-04-iot-course-2020.jpg" alt="IoT product development value added course certificate presentation" loading="lazy"><figcaption>Value Added Course on IoT Product Development, 2020</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Academic background</span>
+        <h2 class="display">Education</h2>
+      </div>
+      <div class="edu-grid">
+        <div class="edu-card reveal">
+          <p class="deg">Ph.D (ECE)</p>
+          <p class="inst">Puducherry Technological University</p>
+          <p class="yr">April 2022</p>
+          <p>Research area: IoT-based Smart Water Management System for Puducherry City.</p>
+          <p>Thesis: Investigations on an AI Integrated IoT Based Water Management Framework for Puducherry UT.</p>
+        </div>
+        <div class="edu-card reveal">
+          <p class="deg">M.Tech (ECE)</p>
+          <p class="inst">Manakula Vinayagar Institute of Technology, Puducherry</p>
+          <p class="yr">May 2014 · First Class with Distinction · CGPA 8.64</p>
+          <p>Thesis: Design and Analysis of Power Supply Noise Rejection Circuit using Active Inductor and Active Capacitor with high PSSR.</p>
+        </div>
+        <div class="edu-card reveal">
+          <p class="deg">B.E. (ECE)</p>
+          <p class="inst">Sri Aravindar Engineering College, Villupuram</p>
+          <p class="yr">April 2012 · Second Class · CGPA 6.45</p>
+          <p>Project: Wireless Fetal Heartbeat Monitoring System using ZigBee and IEEE 802.15.4 Standard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACADEMIC PROFILES -->
+  <section class="profile-band">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow mono">Find me online</span>
+        <h2 class="display">Academic profiles</h2>
+      </div>
+      <div class="profile-grid reveal">
+        <a href="https://www.linkedin.com/in/mani-kannan-79319b47" target="_blank" rel="noopener" class="profile-card">
+          <svg class="p-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.5h4.5V24h-4.5V8.5zM8.5 8.5h4.31v2.1h.06c.6-1.13 2.07-2.32 4.26-2.32 4.55 0 5.39 3 5.39 6.9V24h-4.5v-7.9c0-1.88-.03-4.3-2.62-4.3-2.62 0-3.02 2.05-3.02 4.17V24H8.5V8.5z"/></svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://orcid.org/0000-0001-5472-6200" target="_blank" rel="noopener" class="profile-card">
+          <svg class="p-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.897 0 1.62.724 1.62 1.62 0 .897-.724 1.622-1.62 1.622-.898 0-1.622-.725-1.622-1.622 0-.896.724-1.62 1.622-1.62zm-1.297 5.127h2.595v10.845H6.072V9.505zm4.708 0h4.207c4.007 0 5.774 2.867 5.774 5.428 0 2.789-2.181 5.428-5.774 5.428h-4.207V9.505zm2.595 2.246v6.36h1.427c2.605 0 3.209-1.976 3.209-3.18 0-1.72-1.098-3.18-3.209-3.18h-1.427z"/></svg>
+          <span>ORCID</span>
+        </a>
+        <a href="https://scholar.google.com/citations?user=tISVoy0AAAAJ&hl=en" target="_blank" rel="noopener" class="profile-card">
+          <svg class="p-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8.923 8.923 0 0 1 12 10a8.923 8.923 0 0 1 7.162 3.44L24 9.5z"/></svg>
+          <span>Google Scholar</span>
+        </a>
+        <a href="https://www.scopus.com/authid/detail.uri?authorId=57194066015" target="_blank" rel="noopener" class="profile-card">
+          <svg class="p-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15.6l-4-4.6 1.4-1.4 2.6 2.9 6-6.9 1.4 1.4-7.4 8.6z"/></svg>
+          <span>Scopus</span>
+        </a>
+        <a href="https://www.webofscience.com/wos/author/record/AFI-5294-2022" target="_blank" rel="noopener" class="profile-card">
+          <svg class="p-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <span>Web of Science</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <span class="eyebrow mono" style="justify-content:center;">Get in touch</span>
+      <h2 class="display reveal">Let's collaborate on research<br>or student mentorship</h2>
+      <p class="sub reveal">Open to research collaborations, FDP resource person invitations, hackathon mentoring, and student project guidance in IoT and embedded systems.</p>
+      <div class="contact-cards reveal">
+        <a href="tel:+919629311935" class="c-card">
+          <span class="label">Phone</span>
+          <span class="value">+91 96293 11935</span>
+        </a>
+        <a href="mailto:kannan.gr18@gmail.com" class="c-card">
+          <span class="label">Email</span>
+          <span class="value">kannan.gr18@gmail.com</span>
+        </a>
+        <div class="c-card" style="cursor:default;">
+          <span class="label">Institution</span>
+          <span class="value">CK College of Engineering &amp; Technology, Cuddalore</span>
+        </div>
+        <div class="c-card" style="cursor:default;">
+          <span class="label">Location</span>
+          <span class="value">Villupuram District, Tamil Nadu</span>
+        </div>
+        <a href="https://www.linkedin.com/in/mani-kannan-79319b47" target="_blank" rel="noopener" class="c-card">
+          <span class="label">LinkedIn</span>
+          <span class="value">mani-kannan-79319b47</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Manikannan G — Assistant Professor, ECE · Ph.D · IoT &amp; Embedded Systems Research</div>
+</footer>
+
+<script>
+  // mobile nav
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => {
+    links.classList.toggle('open');
+    const open = links.classList.contains('open');
+    toggle.setAttribute('aria-expanded', open);
+    toggle.textContent = open ? '✕' : '☰';
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded', false);
+    toggle.textContent = '☰';
+  }));
+
+  // publications tabs
+  const pubTabs = document.querySelectorAll('.pub-tab');
+  const journalList = document.getElementById('journalList');
+  const confList = document.getElementById('confList');
+  pubTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      pubTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.dataset.target;
+      journalList.style.display = target === 'journalList' ? '' : 'none';
+      confList.style.display = target === 'confList' ? '' : 'none';
+    });
+  });
+
+  // lightbox for certs and photos
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+  document.querySelectorAll('.cert-item, .photo-item').forEach(item => {
+    item.addEventListener('click', () => {
+      lightboxImg.src = item.dataset.full;
+      lightboxImg.alt = item.querySelector('img').alt;
+      lightbox.classList.add('open');
+    });
+  });
+  function closeLightbox(){ lightbox.classList.remove('open'); lightboxImg.src=''; }
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
