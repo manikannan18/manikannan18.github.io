@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://manikannan18.github.io/Manikannan_porfolio/</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/images/profile-photo.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/photos/photo-01-sih-banner.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/photos/photo-02-sih-winner-cheque.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/photos/photo-03-world-youth-federation.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/photos/photo-04-iot-course-2020.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/photos/photo-05-sih-booth.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-01-atal-5g-antenna.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-02-atal-telemedicine.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-03-atal-digital-twin.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-04-atal-smart-cities.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-05-atal-urban-mobility.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-06-nptel-nba-nate.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-07-nptel-obl.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-08-nptel-iot.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-09-nptel-research.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-10-nptel-product-design.jpg</image:loc></image:image>
+    <image:image><image:loc>https://manikannan18.github.io/Manikannan_porfolio/assets/certs/cert-11-nptel-python.jpg</image:loc></image:image>
+  </url>
+</urlset>
